@@ -13,6 +13,27 @@ az storage account update --name stg-204-nathalia --resource-group rg-204-nathal
 # Habilitar HTTPS somente
 az storage account update --name stg-204-nathalia --resource-group rg-204-nathalia --https-only true
 
+# Habilitar a replicação geográfica
+az storage account update --name stg-204-nathalia --resource-group rg-204-nathalia --sku Standard_GRS
+
+# Habilitar a exclusão suave de blobs
+az storage account blob-service-properties update --account-name stg-204-nathalia --enable-soft-delete true --soft-delete-retention-days 7
+
+# Habilitar a versão de blobs
+az storage account blob-service-properties update --account-name stg-204-nathalia --enable-versioning true
+
+# Habilitar o armazenamento hierárquico (Data Lake Storage Gen2)
+az storage account update --name stg-204-nathalia --resource-group rg-204-nathalia --enable-hierarchical-namespace true
+
+# Habilitar o Azure AD Domain Services (AD DS) para autenticação
+az storage account update --name stg-204-nathalia --resource-group rg-204-nathalia --enable-azure-ad-ds-auth true
+
+# Habilitar o firewall para permitir acesso apenas de redes específicas
+az storage account update --name stg-204-nathalia --resource-group rg-204-nathalia --default-action Deny
+
+# Habilitar instancias gerenciadas para autenticação
+az storage account update --name stg-204-nathalia --resource-group rg-204-nathalia --assign-identity
+
 # Criar um container de blobs
 az storage container create --name container204nathalia --account-name stg-204-nathalia --public-access blob
 

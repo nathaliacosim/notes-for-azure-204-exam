@@ -1,0 +1,53 @@
+# Listar todos os Key Vaults
+az keyvault list --output table
+
+# Criar um Key Vault
+az keyvault create --name kv-204-nathalia --resource-group rg-204-nathalia --location eastus --sku standard
+
+# Adicionar um segredo ao Key Vault
+az keyvault secret set --vault-name kv-204-nathalia --name "senha-admin" --value "admin"
+
+# Recuperar um segredo do Key Vault
+az keyvault secret show --vault-name kv-204-nathalia --name "senha-admin"
+
+# Criar uma política de acesso para um usuário
+az keyvault set-policy --name kv-204-nathalia --upn "cenourinha@seudominio.com" --secret-permissions get list
+
+# Listar políticas de acesso
+az keyvault access-policy list --vault-name kv-204-nathalia
+
+# Atualizar uma política de acesso para um usuário
+az keyvault set-policy --name kv-204-nathalia --upn "cenourinha@seudominio.com" --secret-permissions get list set delete
+
+# Remover uma política de acesso para um usuário
+az keyvault delete-policy --name kv-204-nathalia --upn "cenourinha@seudominio.com"
+
+# Atualizar o tempo de retenção da exclusão suave (soft delete) para 10 dias
+az keyvault update --name kv-204-nathalia --soft-delete-retention-days 10
+
+# Ativar a recuperação de um Key Vault excluído
+az keyvault recover --name kv-204-nathalia
+
+# Deletar permanentemente um Key Vault (purge)
+az keyvault purge --name kv-204-nathalia
+
+# Ativar a exclusão suave de um segredo
+az keyvault secret delete --vault-name kv-204-nathalia --name "senha-admin"
+
+# Listar segredos excluídos
+az keyvault secret list-deleted --vault-name kv-204-nathalia
+
+# Recuperar um segredo excluído
+az keyvault secret recover --vault-name kv-204-nathalia --name "senha-admin"
+
+# Atualizar um segredo
+az keyvault secret set --vault-name kv-204-nathalia --name "senha-admin" --value "newadmin"
+
+# Deletar uma política de acesso
+az keyvault delete-policy --name kv-204-nathalia --upn "cenourinha@seudominio.com"
+
+# Deletar um segredo
+az keyvault secret delete --vault-name kv-204-nathalia --name "senha-admin"
+
+# Deletar um Key Vault
+az keyvault delete --name kv-204-nathalia
