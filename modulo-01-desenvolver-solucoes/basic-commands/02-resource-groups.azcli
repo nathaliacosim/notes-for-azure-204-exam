@@ -1,0 +1,35 @@
+# Criar um grupo de recursos
+az group create --name rg-204-nathalia --location brazilsouth
+
+# Listar grupos de recursos
+az group list --output table
+
+# Mostrar detalhes de um grupo de recursos
+az group show --name rg-204-nathalia
+
+# Atualizar um grupo de recursos adicionando tag
+az group update --name rg-204-nathalia --set tags.environment=dev
+
+# Adicionar ou atualizar tags
+az group update --name rg-204-nathalia --set tags.environment=dev tags.owner=nathalia
+
+# Remover uma tag
+az group update --name rg-204-nathalia --remove tags.owner
+
+# Excluir um grupo de recursos (em background)
+az group delete --name rg-204-nathalia --yes --no-wait
+
+# Verificar se um grupo de recursos existe
+az group exists --name rg-204-nathalia
+
+# Listar grupos de recursos com filtro por tag
+az group list --tag environment=dev --output table
+
+# Listar grupos de recursos em uma localização específica
+az group list --location eastus --output table
+
+# Listar grupos de recursos ordenados por nome
+az group list --query "sort_by(@, &name)" --output table
+
+# Listar grupos de recursos ordenados por localização
+az group list --query "sort_by(@, &location)" --output table

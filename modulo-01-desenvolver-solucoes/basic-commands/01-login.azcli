@@ -1,0 +1,23 @@
+# Logar na conta padrão (abre navegador)
+az login
+
+# Logar com código (máquinas sem navegador)
+az login --use-device-code
+
+# Logar com Service Principal (scripts/CI/CD)
+az login --service-principal -u <APP_ID> -p <PASSWORD_OR_CERT> -t <TENANT_ID>
+
+# Logar usando Identidade Gerenciada (Managed Identity)
+az login --identity
+
+# Logout da conta atual ou usuário específico
+az logout [--username]
+
+# Mostrar assinatura ativa
+az account show
+
+# Listar assinaturas disponíveis
+az account list --output table
+
+# Alterar assinatura ativa
+az account set --subscription "nathalia-azure-204"

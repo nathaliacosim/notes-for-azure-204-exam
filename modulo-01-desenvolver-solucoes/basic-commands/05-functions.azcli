@@ -1,0 +1,47 @@
+# Listar todas as Function Apps
+az functionapp list --output table
+
+# Criar uma Function App em um App Service Plan existente
+az functionapp create --name funcapp-nathalia --resource-group rg-204-nathalia --plan app-svc-nathalia --runtime dotnet --runtime-version 8.0 --functions-version 4
+
+# Mostrar detalhes de uma Function App
+az functionapp show --name funcapp-nathalia --resource-group rg-204-nathalia --output table
+
+# Habilitar Application Insights em uma Function App
+az functionapp update --name funcapp-nathalia --resource-group rg-204-nathalia --set siteConfig.appSettings.APPINSIGHTS_INSTRUMENTATIONKEY=<INSTRUMENTATION_KEY> siteConfig.appSettings.APPLICATIONINSIGHTS_CONNECTION_STRING=<CONNECTION_STRING> siteConfig.appSettings.APPLICATIONINSIGHTS_PROFILERFEATURE_VERSION=1.0.0 siteConfig.appSettings.APPLICATIONINSIGHTS_SNAPSHOTFEATURE_VERSION=1.0.0 siteConfig.appSettings.XDT_MicrosoftApplicationInsights_Mode=recommended    
+
+# Atualizar configurações de uma Function App (adicionar ou atualizar uma configuração)
+az functionapp config appsettings set --name funcapp-nathalia --resource-group rg-204-nathalia --settings "ENV=dev" "OWNER=nathalia"
+
+# Remover uma configuração
+az functionapp config appsettings delete --name funcapp-nathalia --resource-group rg-204-nathalia --setting-names "OWNER"
+
+# Monitorar logs de uma Function App em tempo real
+az functionapp log tail --name funcapp-nathalia --resource-group rg-204-nathalia
+
+# Iniciar uma Function App
+az functionapp start --name funcapp-nathalia --resource-group rg-204-nathalia
+
+# Parar uma Function App
+az functionapp stop --name funcapp-nathalia --resource-group rg-204-nathalia
+
+# Reiniciar uma Function App
+az functionapp restart --name funcapp-nathalia --resource-group rg-204-nathalia
+
+# Configurar deployment via arquivo ZIP
+az functionapp deployment source config-zip --name funcapp-nathalia --resource-group rg-204-nathalia --src ./myfunctionapp.zip
+
+# Listar slots de deployment
+az functionapp deployment slot list --name funcapp-nathalia --resource-group rg-204-nathalia --output table
+
+# Criar um slot de deployment
+az functionapp deployment slot create --name funcapp-nathalia --resource-group rg-204-nathalia --slot staging
+
+# Trocar slots de deployment (swap)
+az functionapp deployment slot swap --name funcapp-nathalia --resource-group rg-204-nathalia --slot staging --target-slot production
+
+# Excluir uma Function App
+az functionapp delete --name funcapp-nathalia --resource-group rg-204-nathalia
+
+# Listar funções dentro de uma Function App
+az functionapp function list --name funcapp-nathalia --resource-group rg-204-nathalia --output table

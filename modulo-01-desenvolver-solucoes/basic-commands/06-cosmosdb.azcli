@@ -1,0 +1,59 @@
+# Listar todas as contas do Cosmos DB
+az cosmosdb list --output table
+
+# Criar uma conta do Cosmos DB (API Core/SQL)
+az cosmosdb create --name db-cosmos-nath --resource-group rg-204-nathalia --kind GlobalDocumentDB --default-consistency-level Session --locations regionName=eastus failoverPriority=0 isZoneRedundant=False
+
+# Mostrar detalhes da conta do Cosmos DB
+az cosmosdb show --name db-cosmos-nath --resource-group rg-204-nathalia --output table
+
+# Listar chaves de acesso da conta do Cosmos DB
+az cosmosdb keys list --name db-cosmos-nath --resource-group rg-204-nathalia --type keys
+
+# Listar bancos de dados na conta do Cosmos DB
+az cosmosdb sql database list --account-name db-cosmos-nath --resource-group rg-204-nathalia --output table
+
+# Criar um banco de dados na conta do Cosmos DB
+az cosmosdb sql database create --account-name db-cosmos-nath --resource-group rg-204-nathalia --name db-204-nath
+
+# Listar containers no banco de dados do Cosmos DB
+az cosmosdb sql container list --account-name db-cosmos-nath --resource-group rg-204-nathalia --database-name db-204-nath --output table
+
+# Criar um container no banco de dados do Cosmos DB
+az cosmosdb sql container create --account-name db-cosmos-nath --resource-group rg-204-nathalia --database-name db-204-nath --name container-204-nath --partition-key-path /id --throughput 400
+
+# Mostrar detalhes de um container
+az cosmosdb sql container show --account-name db-cosmos-nath --resource-group rg-204-nathalia --database-name db-204-nath --name container-204-nath
+
+# Atualizar a taxa de transferência (throughput) do container
+az cosmosdb sql container throughput update --account-name db-cosmos-nath --resource-group rg-204-nathalia --database-name db-204-nath --name container-204-nath --throughput 600
+
+# Criar um usuário (role) no Cosmos DB
+az cosmosdb sql role assignment create --account-name db-cosmos-nath --scope "/dbs/db-204-nath" --role "CosmosDB Built-in Data Contributor" --principal-id <PRINCIPAL_OBJECT_ID>
+
+# Monitorar métricas da conta do Cosmos DB
+az cosmosdb show-metrics --name db-cosmos-nath --resource-group rg-204-nathalia --metric-names TotalRequests,TotalRequestUnits,DataUsage,IndexUsage --interval PT1M --output table
+
+# Listar backups da conta do Cosmos DB (se configurado)
+az cosmosdb sql backup list --account-name db-cosmos-nath --resource-group rg-204-nathalia --output table
+
+# Restaurar a conta do Cosmos DB a partir de um backup (se aplicável)
+az cosmosdb sql restore --account-name db-cosmos-nath --resource-group rg-204-nathalia --restore-timestamp <TIMESTAMP> --source-database-id <SOURCE_DB_ID>
+
+# Listar logs de atividades da conta do Cosmos DB
+az monitor activity-log list --resource-group rg-204-nathalia --resource-provider Microsoft.DocumentDB --resource db-cosmos-nath --output table
+
+# Listar alertas configurados para a conta do Cosmos DB
+az monitor alert list --resource-group rg-204-nathalia --output table
+
+# Excluir logs de atividades antigos (opcional)
+az monitor activity-log delete --resource-group rg-204-nathalia --resource-provider Microsoft.DocumentDB --resource db-cosmos-nath --start-time <START_TIME> --end-time <END_TIME>
+
+# Excluir um container do Cosmos DB
+az cosmosdb sql container delete --account-name db-cosmos-nath --resource-group rg-204-nathalia --database-name db-204-nath --name container-204-nath --yes
+
+# Excluir um banco de dados do Cosmos DB
+az cosmosdb sql database delete --account-name db-cosmos-nath --resource-group rg-204-nathalia --name db-204-nath --yes
+
+# Excluir a conta do Cosmos DB
+az cosmosdb delete --name db-cosmos-nath --resource-group rg-204-nathalia --yes

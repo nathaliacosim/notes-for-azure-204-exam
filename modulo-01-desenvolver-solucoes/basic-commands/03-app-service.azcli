@@ -1,0 +1,14 @@
+# Criar um App Service Plan
+az appservice plan create --name app-svc-nathalia --resource-group rg-204-nathalia --sku S1 --is-linux
+
+# Listar App Service Plans
+az appservice plan list --output table
+
+# Mostrar detalhes do App Service Plan
+az appservice plan show --name app-svc-nathalia --resource-group rg-204-nathalia --output table
+
+# Atualizar um App Service Plan
+az appservice plan update --name app-svc-nathalia --resource-group rg-204-nathalia --sku P1v2
+
+# Remover um App Service Plan
+az appservice plan delete --name app-svc-nathalia --resource-group rg-204-nathalia --yes

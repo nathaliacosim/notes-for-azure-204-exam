@@ -1,0 +1,72 @@
+# Verificar disponibilidade de nome para um Web App
+az webapp check-name --name webapp-nathalia
+# Listar Web Apps
+az webapp list --output table
+
+# Listar regiões disponíveis para Web Apps
+az webapp list-locations --output table
+
+# Listar runtimes suportados para Web Apps em Linux
+az webapp list-runtimes --linux-only --output table
+
+# Listar stacks suportados para Web Apps em Windows
+az webapp list-runtimes --windows-only --output table
+
+# Listar versões de um runtime específico (ex: DOTNET)
+az webapp list-runtimes --linux-only --query "contains(@, 'DOTNET')" --output table
+
+# Criar um Web App em um App Service Plan existente
+az webapp create --name webapp-nathalia --resource-group rg-204-nathalia --plan app-svc-nathalia --runtime "DOTNET|8.0"
+
+# Mostrar detalhes de um Web App
+az webapp show --name webapp-nathalia --resource-group rg-204-nathalia --output table
+
+# Atualizar configurações de um Web App (adicionar ou atualizar uma configuração)
+az webapp config appsettings set --name webapp-nathalia --resource-group rg-204-nathalia --settings "ENV=dev" "OWNER=nathalia"
+
+# Adicionar configuração de conexão (connection string)
+az webapp config 
+   connection-string set 
+   --name webapp-nathalia 
+   --resource-group rg-204-nathalia 
+   --settings "MyDbConnection=Server=myserver;Database=mydb;User Id=myuser;Password=mypassword;" 
+   --connection-string-type SQLAzure
+
+# Adicionar configuração de cors 
+az webapp cors add --name webapp-nathalia --resource-group rg-204-nathalia --allowed-origins "https://googlenath.com" "https://microsoftnath.com"
+
+# Atualizar configuração de cors (substitui todas as existentes)
+az webapp cors set --name webapp-nathalia --resource-group rg-204-nathalia --allowed-origins "https://nathalia.com" "https://nathalia.dev"
+
+# Remover configuração de cors
+az webapp cors remove --name webapp-nathalia --resource-group rg-204-nathalia --allowed-origins "https://nathalia.dev"
+
+# Remover uma configuração
+az webapp config appsettings delete --name webapp-nathalia --resource-group rg-204-nathalia --setting-names "OWNER"
+
+# Monitorar logs de um Web App em tempo real
+az webapp log tail --name webapp-nathalia --resource-group rg-204-nathalia
+
+# Insights de um Web App
+az webapp log show --name webapp-nathalia --resource-group rg-204-nathalia --output table
+
+# Iniciar um Web App
+az webapp start --name webapp-nathalia --resource-group rg-204-nathalia
+
+# Parar um Web App
+az webapp stop --name webapp-nathalia --resource-group rg-204-nathalia
+
+# Reiniciar um Web App
+az webapp restart --name webapp-nathalia --resource-group rg-204-nathalia
+
+# Deployar código para um Web App (a partir de um diretório local)
+az webapp deployment source config-local-git --name webapp-nathalia --resource-group rg-204-nathalia
+
+# Deploy de código via arquivo zip
+az webapp deployment source config-zip --name webapp-nathalia --resource-group rg-204-nathalia --src ./myapp.zip
+
+# Habilitar HTTPS obrigatório
+az webapp update --name webapp-nathalia --resource-group rg-204-nathalia --set httpsOnly=true
+
+# Excluir um Web App
+az webapp delete --name webapp-nathalia --resource-group rg-204-nathalia
