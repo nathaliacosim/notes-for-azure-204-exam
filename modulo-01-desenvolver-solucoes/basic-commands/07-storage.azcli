@@ -1,0 +1,56 @@
+# Listar todas as Storage Accounts
+az storage account list --output table
+
+# Criar uma Storage Account
+az storage account create --name stg-204-nathalia --resource-group rg-204-nathalia --location eastus --sku Standard_LRS --kind StorageV2
+
+# Mostrar detalhes de uma Storage Account
+az storage account show --name stg-204-nathalia --resource-group rg-204-nathalia
+
+# Habilitar o acesso anônimo a blobs
+az storage account update --name stg-204-nathalia --resource-group rg-204-nathalia --allow-blob-public-access true
+
+# Habilitar HTTPS somente
+az storage account update --name stg-204-nathalia --resource-group rg-204-nathalia --https-only true
+
+# Criar um container de blobs
+az storage container create --name container204nathalia --account-name stg-204-nathalia --public-access blob
+
+# Listar containers de blobs
+az storage container list --account-name stg-204-nathalia --output table
+
+# Fazer upload de um arquivo para o container
+az storage blob upload --container-name container204nathalia --file ./07-storage.azcli --name 07-storage.azcli --account-name stg-204-nathalia
+
+# Listar blobs no container
+az storage blob list --container-name container204nathalia --account-name stg-204-nathalia --output table
+
+# Fazer download de um blob
+az storage blob download --container-name container204nathalia --name 07-storage.azcli --file ./downloaded-07-storage.azcli --account-name stg-204-nathalia
+
+# Mudar o nível de acesso do blob para privado
+az storage container set-permission --name container204nathalia --account-name stg-204-nathalia --public-access off
+
+# Compartilhar um blob com uma URL SAS (Shared Access Signature) válida por 1 hora
+az storage blob generate-sas --account-name stg-204-nathalia --container-name container204nathalia --name 07-storage.azcli --permissions r --expiry (Get-Date).AddHours(1).ToString("yyyy-MM-ddTHH:mmZ")
+
+# Alterar camada de tier de um blob para Cool
+az storage blob set-tier --account-name stg-204-nathalia --container-name container204nathalia --name 07-storage.azcli --tier Cool
+
+# Mover para a camada Archive
+az storage blob set-tier --account-name stg-204-nathalia --container-name container204nathalia --name 07-storage.azcli --tier Archive
+
+# Reidratar o blob da camada Archive para Hot (pode levar algumas horas)
+az storage blob set-tier --account-name stg-204-nathalia --container-name container204nathalia --name 07-storage.azcli --tier Hot
+
+# Mover um blob para outro container
+az storage blob copy start --account-name stg-204-nathalia --destination-container container204nathalia --destination-blob 07-storage-copy.azcli --source-uri "https://stg204nathalia.blob.core.windows.net/container204nathalia/07-storage.azcli" 
+
+# Deletar um blob
+az storage blob delete --account-name stg-204-nathalia --container-name container204nathalia --name 07-storage-copy.azcli
+
+# Deletar um container
+az storage container delete --name container204nathalia --account-name stg-204-nathalia
+
+# Deletar a Storage Account
+az storage account delete --name stg-204-nathalia --resource-group rg-204-nathalia --yes
