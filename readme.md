@@ -66,9 +66,12 @@ A **AZ-204 – Desenvolvendo Soluções no Microsoft Azure** é essencial para q
 ---
 
 ## 📎 Recursos Úteis
-- [Documentação Oficial AZ-204](https://learn.microsoft.com/en-us/certifications/exams/az-204)  
-- [Microsoft Learn – Azure Developer](https://learn.microsoft.com/pt-br/training/courses/az-204t00)  
-- [Exemplos e SDKs do Azure](https://learn.microsoft.com/en-us/samples/browse/?products=azure)  
+
+- [Guia AZ-204](https://learn.microsoft.com/pt-br/credentials/certifications/resources/study-guides/az-204)  
+- [Zona de Preparação para Exames](https://learn.microsoft.com/pt-br/shows/exam-readiness-zone/preparing-for-az-204-01-fy25)  
+- [Tudo sobre AZ-204](https://learn.microsoft.com/pt-br/training/browse/?terms=az-204&source=learn)  
+- [Study Guide no GitHub](https://github.com/AzureMentor/Azure-AZ-204-Study-Guide/tree/master)  
+- [Microsoft Learn – Azure Developer](https://learn.microsoft.com/pt-br/training/courses/az-204t00) 
 
 ---
 
