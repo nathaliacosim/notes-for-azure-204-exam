@@ -1,0 +1,55 @@
+# Estrutura geral do comando:
+az containerapp [...]
+
+# Criar ambiente para Azure Container Apps
+az containerapp env create \
+    --name env-cenourinha \
+    --resource-group rg-204-nathalia \
+    --location eastus
+
+# Criar aplicativo no Azure Container Apps
+az containerapp create \
+    --name container-cenourinha \
+    --resource-group rg-204-nathalia \
+    --environment env-cenourinha \
+    --image nathaliacm/cenourinha:latest \
+    --cpu 0.5 \
+    --memory 1.0Gi \
+    --ingress 'external' \
+    --target-port 80
+
+# Regras de Escalonamento para Azure Container Apps
+az containerapp revision set-scale \
+    --name container-cenourinha \
+    --resource-group rg-204-nathalia  \
+    --min-replicas 1 \
+    --max-replicas 2
+
+# Atualizar configurações no Azure Container Apps
+az containerapp update \
+    --name container-cenourinha \
+    --resource-group rg-204-nathalia \
+    --image nathaliacm/cenourinha:v2 \
+    --cpu 1.0 \
+    --memory 2.0Gi
+
+# Obter logs no Azure Container Apps
+az containerapp logs show \
+    --name container-cenourinha \
+    --resource-group rg-204-nathalia \
+    --follow
+
+# Exibir detalhes do aplicativo no Azure Container Apps
+az containerapp show \
+    --name container-cenourinha \
+    --resource-group rg-204-nathalia
+
+# Excluir aplicativo no Azure Container Apps
+az containerapp delete \
+    --name container-cenourinha \
+    --resource-group rg-204-nathalia
+
+# Excluir ambiente no Azure Container Apps
+az containerapp env delete \
+    --name env-cenourinha \
+    --resource-group rg-204-nathalia
