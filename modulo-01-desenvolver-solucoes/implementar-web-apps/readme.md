@@ -30,7 +30,7 @@ Ao final do curso, estarei apta a:
 ---
 
 ## 📄 Visão Geral do Módulo
-Para uma introdução completa ao conteúdo abordado, confira o arquivo [📘 overview.md](modulo-01-desenvolver-solucoes/implementar-web-apps/overview.md).  
+Para uma introdução completa ao conteúdo abordado, confira o arquivo [📘 overview.md](./overview.md).  
 Nele você encontrará um resumo dos principais tópicos, objetivos de aprendizagem e contexto geral sobre o uso do Azure App Service.
 
 ---
@@ -41,13 +41,13 @@ As anotações estão organizadas por tópicos, cada um com seu próprio arquivo
 
 | Tópico | Link |
 |-------|------|
-| 01 - Criação do App Service | [📁 Acessar](modulo-01-desenvolver-solucoes/implementar-web-apps/01-criacao-app-service/README.md) |
-| 02 - Diagnóstico e Monitoramento | [📁 Acessar](modulo-01-desenvolver-solucoes/implementar-web-apps/02-diagnostico-monitoramento/README.md) |
-| 03 - Implantação de Código e Contêineres | [📁 Acessar](modulo-01-desenvolver-solucoes/implementar-web-apps/03-implantacao-codigo-containers/README.md) |
-| 04 - Configurações de Segurança | [📁 Acessar](modulo-01-desenvolver-solucoes/implementar-web-apps/04-configuracoes-seguranca/README.md) |
-| 05 - Autoscaling | [📁 Acessar](modulo-01-desenvolver-solucoes/implementar-web-apps/05-autoscaling/README.md) |
-| 06 - Deployment Slots | [📁 Acessar](modulo-01-desenvolver-solucoes/implementar-web-apps/06-deployment-slots/README.md) |
-| 07 - Revisão Final | [📁 Acessar](modulo-01-desenvolver-solucoes/implementar-web-apps/07-resumo-final/README.md) |
+| 01 - Criação do App Service | [📁 Acessar](./01-criacao-app-service/README.md) |
+| 02 - Diagnóstico e Monitoramento | [📁 Acessar](./02-diagnostico-monitoramento/README.md) |
+| 03 - Implantação de Código e Contêineres | [📁 Acessar](./03-implantacao-codigo-containers/README.md) |
+| 04 - Configurações de Segurança | [📁 Acessar](./04-configuracoes-seguranca/README.md) |
+| 05 - Autoscaling | [📁 Acessar](./05-autoscaling/README.md) |
+| 06 - Deployment Slots | [📁 Acessar](./06-deployment-slots/README.md) |
+| 07 - Revisão Final | [📁 Acessar](./07-resumo-final/README.md) |
 
 ---
 
