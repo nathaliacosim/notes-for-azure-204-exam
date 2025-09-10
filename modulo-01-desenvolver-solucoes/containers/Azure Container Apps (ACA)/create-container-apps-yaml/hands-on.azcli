@@ -1,0 +1,27 @@
+# Pré-requisitos
+# Conta ativa no Azure.
+# Azure CLI instalada com a extensão do Container Apps (az extension add --name containerapp).
+# Linha de comando com permissão de administrador.
+
+# Parte 1 – Criar Ambiente de Container App
+# Crie um grupo de recursos
+az group create --name rg-containerapp --location eastus
+
+# Crie um ambiente de Container Apps
+az containerapp env create \\
+  --name meu-ambiente-apps \\
+  --resource-group rg-containerapp \\
+  --location eastus
+
+# Parte 2 – Criar Arquivo YAML
+# Crie um arquivo chamado meuapp.yaml
+# Substitua <seu_id> pelo ID da sua assinatura (use az account show --query id -o tsv para descobrir).
+
+# Parte 3 – Implantar o Container App via YAML
+# Execute o comando abaixo para criar o Container App a partir do arquivo YAML
+az containerapp create --file meuapp.yaml
+
+# Parte 4 – Validar o Funcionamento
+# Obtenha a URL:
+az containerapp show --name app-web-yaml --resource-group rg-containerapp --query properties.configuration.ingress.fqdn -o tsv
+# Acesse a URL em um navegador.

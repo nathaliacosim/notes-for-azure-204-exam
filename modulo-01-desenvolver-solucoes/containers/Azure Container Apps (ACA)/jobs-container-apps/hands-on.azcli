@@ -1,0 +1,19 @@
+# Pré-requisitos
+# Conta ativa no Azure.
+# Azure CLI instalada com a extensão do Container Apps (az extension add --name containerapp).
+# Azure Container Apps Environment criado previamente.
+
+# Parte 1 – Criar Job Sob Demanda (Manual)
+# Crie o arquivo job-manual.yaml
+# Substitua <id> pelo ID da assinatura Azure.
+# Crie o job:
+az containerapp job create --file job-manual.yaml
+
+# Execute o job:
+az containerapp job start --name job-manual --resource-group rg-containerapp
+
+# Parte 2 – Criar Job Agendado (Cron)
+# Crie o arquivo job-cron.yaml
+# Crie o job:
+az containerapp job create --file job-cron.yaml
+#Esse job será executado automaticamente a cada 5 minutos.
