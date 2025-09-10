@@ -12,6 +12,7 @@ Este repositório reúne minhas anotações, reflexões e materiais complementar
 - [🛠 Tecnologias e Ferramentas](#-tecnologias-e-ferramentas)
 - [📌 Observações Pessoais](#-observações-pessoais)
 - [📖 Referências](#-referências)
+- [🧩 Códigos de Completar (Cosmos DB)](./complete-codigo.md)
 
 ---
 
