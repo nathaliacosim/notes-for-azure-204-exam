@@ -1,0 +1,31 @@
+# Criar um grupo de recursos
+az group create --name lab-container-01 --location eastus
+
+# Criar um ACR
+az acr create --resource-group lab-container-01 --name acrlabnath01 --sku Basic
+
+# Recuperar o login server do ACR
+az acr show --name acrlabnath01 --query loginServer --output table
+
+# Fazer login no ACR
+az acr login --name acrlabnath01
+
+# Build da Imagem
+docker build -t acrlabnath01.azurecr.io/app-flask:latest .
+
+# Push da Imagem
+docker push acrlabnath01.azurecr.io/app-flask:latest
+
+# Obter as credenciais do repositório
+az acr credential show --name acrlabnath01
+
+# Criar um container
+az container create \
+    --resource-group lab-container-01 \
+    --name app-flask-aci \
+    --image acrlabnath01.azurecr.io/app-flask:latest \
+    --registry-login-server acrlabnath01.azurecr.io \
+    --registry-username cenourinha \
+    --registry-password admin \
+    --dns-name-label app-flask-aci-nathalia \
+    --ports 80
