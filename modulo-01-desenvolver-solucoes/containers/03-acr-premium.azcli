@@ -1,0 +1,29 @@
+# =====================================================
+# ACR - Premium SKU
+# =====================================================
+
+# Tudo do Standard SKU
+
+# Replicação geográfica
+az acr replication create --registry registry204nath --location westus
+az acr replication list --registry registry204nath --output table
+az acr replication delete --registry registry204nath --location westus
+
+# Private Endpoint / Private Link
+az network private-endpoint create \
+  --name pe-acr \
+  --resource-group rg-204-nathalia \
+  --vnet-name myVnet \
+  --subnet mySubnet \
+  --private-connection-resource-id $(az acr show --name registry204nath --query id -o tsv) \
+  --group-ids registry
+
+# Network rules (restrição por IP ou VNet)
+az acr network-rule add --resource-group rg-204nathalia --name registry204nath --ip-address 189.45.67.123
+az acr network-rule add --resource-group rg-204nathalia --name registry204nath --vnet-name myVnet --subnet mySubnet
+az acr network-rule list --name registry204nath
+
+# Autenticação com tokens AAD
+az acr token create --name cenourinha --registry registry204nath --scope-map _repositories_pull
+az acr token create --name cenourinhaPushPull --registry registry204nath --scope-map _repositories_push_pull
+az acr token credential generate --name cenourinha --registry registry204nath

@@ -1,0 +1,24 @@
+# =====================================================
+# ACR - Standard SKU
+# =====================================================
+
+# Tudo do Basic SKU
+
+# Suporte a Tasks e Builds (limitado)
+# Build local direto no ACR
+az acr build --registry registry204nath --image myapp:v1 .
+
+# Build a partir de repositório GitHub
+az acr build --registry registry204nath --image webapp:v1 https://github.com/Azure-Samples/acr-build-helloworld-node.git
+
+# Criar task agendada (build automático) - Standard suporta
+az acr task create \
+  --registry registry204nath \
+  --name rebuildTask \
+  --image myapp:{{.Run.ID}} \
+  --context https://github.com/Azure-Samples/acr-build-helloworld-node.git \
+  --schedule "0 12 * * *" \
+  --commit-trigger-enabled false
+
+# Executar task manualmente
+az acr task run --registry registry204nath --name rebuildTask

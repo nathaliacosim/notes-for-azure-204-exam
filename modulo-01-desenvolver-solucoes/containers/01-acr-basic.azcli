@@ -1,0 +1,45 @@
+# =====================================================
+# ACR - Basic SKU
+# =====================================================
+
+# Listar todos os registries na assinatura
+az acr list --output table
+
+# Listar todos os registries em um grupo de recursos específico
+az acr list --resource-group rg-204-nathalia --output table
+
+# Criar um registry Basic com admin enabled
+az acr create --resource-group rg-204-nathalia --name registry204nath --sku Basic --admin-enabled true --location eastus
+
+# Mostrar detalhes de um registry
+az acr show --name registry204nath --output table
+
+# Obter as credenciais de login
+az acr credential show --name registry204nath
+
+# Fazer login no registry usando Azure CLI
+az acr login --name registry204nath
+
+# Listar repositórios dentro do registry
+az acr repository list --name registry204nath --output table
+
+# Mostrar tags de um repositório específico
+az acr repository show-tags --name registry204nath --repository hello-world --output table
+
+# Fazer pull de uma imagem do Docker Hub (público)
+docker pull hello-world:latest
+
+# Taguear imagem local para o ACR
+docker tag hello-world:latest registry204nath.azurecr.io/hello-world:latest
+
+# Fazer push de uma imagem para o ACR
+docker push registry204nath.azurecr.io/hello-world:latest
+
+# Fazer pull de uma imagem do ACR
+docker pull registry204nath.azurecr.io/hello-world:latest
+
+# Deletar uma imagem específica no registry
+az acr repository delete --name registry204nath --repository hello-world --tag latest --yes
+
+# Deletar o registry
+az acr delete --name registry204nath --resource-group rg-204-nathalia --yes
