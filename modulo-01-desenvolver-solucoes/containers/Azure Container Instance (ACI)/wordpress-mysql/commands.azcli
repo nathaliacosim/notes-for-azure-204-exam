@@ -1,0 +1,14 @@
+# Parte 1 – Criar Grupo de Recursos
+az group create --name rg-wordpress --location eastus
+
+# Parte 2 – Implantar Container Group com WordPress + MySQL
+# Crie wordpress-mysql-aci.yaml
+# Implantar com:
+az container create --resource-group rg-wordpress --file wordpress-mysql-aci.yaml
+
+# Parte 3 – Acessar a Aplicação WordPress
+#Descubra o IP público:
+az container show --resource-group rg-wordpress --name wordpress-group --query ipAddress.ip --output tsv
+
+#Acesse via navegador:
+http://<IP_PUBLICO>

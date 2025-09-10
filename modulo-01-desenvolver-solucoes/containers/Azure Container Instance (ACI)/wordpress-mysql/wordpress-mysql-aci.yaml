@@ -1,0 +1,46 @@
+apiVersion: 2021-03-01
+location: eastus
+type: Microsoft.ContainerInstance/containerGroups
+name: wordpress-group
+properties:
+  osType: Linux
+  containers:
+  - name: mysql
+    properties:
+      image: mysql:5.7
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1.5
+      environmentVariables:
+      - name: MYSQL_ROOT_PASSWORD
+        value: wordpresspass
+      - name: MYSQL_DATABASE
+        value: wordpress
+      - name: MYSQL_USER
+        value: wpuser
+      - name: MYSQL_PASSWORD
+        value: wppass
+  - name: wordpress
+    properties:
+      image: wordpress
+      ports:
+      - port: 80
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1.5
+      environmentVariables:
+      - name: WORDPRESS_DB_HOST
+        value: mysql
+      - name: WORDPRESS_DB_USER
+        value: wpuser
+      - name: WORDPRESS_DB_PASSWORD
+        value: wppass
+      - name: WORDPRESS_DB_NAME
+        value: wordpress
+  ipAddress:
+    type: Public
+    ports:
+    - protocol: tcp
+      port: 80
