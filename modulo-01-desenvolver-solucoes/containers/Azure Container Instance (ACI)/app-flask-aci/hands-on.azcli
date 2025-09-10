@@ -29,3 +29,16 @@ az container create \
     --registry-password admin \
     --dns-name-label app-flask-aci-nathalia \
     --ports 80
+
+
+# Anexar a um container
+az container attach --resource-group lab-container-01 --name app-flask-aci
+
+# Obter o IP do container
+az container show --resource-group lab-container-01 --name app-flask-aci --query ipAddress.ip --output table
+
+# Acessar a aplicação
+# http://app-flask-aci-nathalia.eastus.azurecontainer.io
+
+# Deletar o container
+az container delete --resource-group lab-container-01 --name app-flask-aci

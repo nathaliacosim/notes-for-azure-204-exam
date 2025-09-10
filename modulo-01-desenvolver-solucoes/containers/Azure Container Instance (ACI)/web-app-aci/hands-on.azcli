@@ -1,0 +1,25 @@
+# Build da imagem local
+docker build -t webapp-aci .
+
+# Taguear a imagem para o Docker Hub
+docker tag webapp-aci nathalia/webapp-aci
+
+# Login no Docker Hub
+docker login
+
+# Push da imagem para o Docker Hub
+docker push nathalia/webapp-aci
+
+# Criar grupo de recursos no Azure
+az group create --name rg-aci-cli --location eastus
+
+# Criar instância de container no Azure ACI
+az container create \
+  --resource-group rg-aci-cli \
+  --name container-webapp \
+  --image nathalia/webapp-aci \
+  --dns-name-label siteaci123456 \
+  --ports 80
+
+# (Opcional) Obter FQDN da aplicação
+az container show --resource-group rg-aci-cli --name container-webapp --query ipAddress.fqdn -o tsv
