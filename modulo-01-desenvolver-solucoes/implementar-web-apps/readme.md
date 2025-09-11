@@ -36,22 +36,6 @@ Nele você encontrará um resumo dos principais tópicos, objetivos de aprendiza
 
 ---
 
-## 🗂 Estrutura das Anotações
-
-As anotações estão organizadas por tópicos, cada um com seu próprio arquivo:
-
-| Tópico | Link |
-|-------|------|
-| 01 - Criação do App Service | [📁 Acessar](./01-criacao-app-service/README.md) |
-| 02 - Diagnóstico e Monitoramento | [📁 Acessar](./02-diagnostico-monitoramento/README.md) |
-| 03 - Implantação de Código e Contêineres | [📁 Acessar](./03-implantacao-codigo-containers/README.md) |
-| 04 - Configurações de Segurança | [📁 Acessar](./04-configuracoes-seguranca/README.md) |
-| 05 - Autoscaling | [📁 Acessar](./05-autoscaling/README.md) |
-| 06 - Deployment Slots | [📁 Acessar](./06-deployment-slots/README.md) |
-| 07 - Revisão Final | [📁 Acessar](./07-resumo-final/README.md) |
-
----
-
 ## 🛠 Tecnologias e Ferramentas
 
 Ferramentas utilizadas ao longo do curso:

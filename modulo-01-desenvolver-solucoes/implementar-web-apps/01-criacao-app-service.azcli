@@ -1,0 +1,67 @@
+# Login azure
+az login
+
+# Variaveis
+rg=rg-app-service
+local=brazilsouth
+app-plan=plano-app-cli
+
+# Criar grupo de recursos
+az group create --name $rg --location $local
+
+# Criar App Service Plan de forma simplificada
+az appservice plan create --name $app-plan --resource-group $rg
+
+# Mostrar detalhes do App Service Plan
+az appservice plan show --name $app-plan --resource-group $rg
+
+# Listar App Service Plans
+az appservice plan list --resource-group $rg --output table
+
+# Deletar App Service Plan
+az appservice plan delete --name $app-plan --resource-group $rg --yes
+
+# Criar App Service Plan com Plano Free
+az appservice plan create --name $app-plan --resource-group $rg --sku F1
+
+# Listar todos os App Service Plans da Camada Free
+az appservice plan list --query "[?sku.tier=='Free']" --output table
+
+# Atualizar App Service Plan para Camada Shared
+az appservice plan update --name $app-plan --resource-group $rg --sku D1
+
+# Atualizar App Service Plan para Camada Basic
+az appservice plan update --name $app-plan --resource-group $rg --sku B1
+
+# Atualizar App Service Plan para Camada Standard
+az appservice plan update --name $app-plan --resource-group $rg --sku S1
+
+# Atualizar App Service Plan para Camada Premium
+az appservice plan update --name $app-plan --resource-group $rg --sku P1
+
+# Atualizar App Service Plan para Camada PremiumV2
+az appservice plan update --name $app-plan --resource-group $rg --sku P2v2
+
+# Atualizar App Service Plan para Camada PremiumV3
+az appservice plan update --name $app-plan --resource-group $rg --sku P1v3
+
+# Atualizar App Service Plan para Camada Isolada
+az appservice plan update --name $app-plan --resource-group $rg --sku I1
+
+# Criar App Service Plan sem aguardar a conclusão
+az appservice plan create --name $app-plan --resource-group $rg --sku F1 --no-wait
+
+# Criar App Service Plan no Linux
+az appservice plan create --name $app-plan --resource-group $rg --sku B1 --is-linux
+
+# Criar App Service Plan no Linux com Docker
+az appservice plan create --name $app-plan --resource-group $rg --sku B1 --is-linux --number-of-workers 1 --linux-fx-version "DOCKER|mcr.microsoft.com/dotnet/core/samples:aspnetapp"
+
+# Listar todos os App Service Plans no Linux
+az appservice plan list --query "[?reserved==true]" --output table
+
+# Criar App Service Plan com instâncias de 3 workers
+az appservice plan create --name $app-plan --resource-group $rg --sku S1 --number-of-workers 3
+
+# Criar App Service Plan no Windows com instâncias de 3 workers
+az appservice plan create --name $app-plan --resource-group $rg --sku S1 --number-of-workers 3 --is-linux false
