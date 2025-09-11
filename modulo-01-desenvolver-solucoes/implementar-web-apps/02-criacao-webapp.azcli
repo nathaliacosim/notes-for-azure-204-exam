@@ -1,0 +1,62 @@
+# Criar grupo de recursos
+az group create --name rg-nath-204 --location eastus
+
+# Criar plano de serviço do App na camada basica (B1) para Linux
+az appservice plan create --name plano-nath-204 --resource-group rg-nath-204 --sku B1 --is-linux
+
+# Criar web app com runtime do .net 8.0
+az webapp create --resource-group rg-nath-204 --plan plano-nath-204 --name webapp-nath-204 --runtime "DOTNET|8.0"
+
+# Mostrar detalhes do web app
+az webapp show --name webapp-nath-204 --resource-group rg-nath-204
+
+# Monitorar logs do web app em tempo real
+az webapp log tail --name webapp-nath-204 --resource-group rg-nath-204
+
+# Abrir o web app no navegador padrão
+az webapp browse --name webapp-nath-204 --resource-group rg-nath-204
+
+# Listar web apps no grupo de recursos
+az webapp list --resource-group rg-nath-204 --output table
+
+# Atualizar configuração do web app para habilitar logs detalhados
+az webapp log config --name webapp-nath-204 \
+  --resource-group rg-nath-204 \
+  --application-logging true \
+  --detailed-error-messages true \
+  --failed-request-tracing true
+
+# Atualizar configuração do web app para habilitar logs de HTTP 
+# Para mais detalhes sobre este comando veja: logging-webapp.md
+az webapp log config --name webapp-nath-204 \
+  --resource-group rg-nath-204 \
+  --web-server-logging filesystem \
+  --detailed-error-messages true \
+  --failed-request-tracing true \
+  --application-logging filesystem \
+  --level verbose \
+  --retention-days 7 \
+  --quota 35
+
+# Exibir configuração de logs do web app
+az webapp log show --name webapp-nath-204 --resource-group rg-nath-204
+
+# Atualizar tags do web app
+az webapp update --name webapp-nath-204 --resource-group rg-nath-204 \
+  --set tags.environment=dev \
+  --set tags.department=finance
+
+# Iniciar o web app
+az webapp start --name webapp-nath-204 --resource-group rg-nath-204
+
+# Parar o web app
+az webapp stop --name webapp-nath-204 --resource-group rg-nath-204
+
+# Reiniciar o web app
+az webapp restart --name webapp-nath-204 --resource-group rg-nath-204
+
+# Excluir o web app
+az webapp delete --name webapp-nath-204 --resource-group rg-nath-204
+
+# Excluir o grupo de recursos (e todos os recursos dentro dele)
+az group delete --name rg-nath-204 --yes --no-wait
