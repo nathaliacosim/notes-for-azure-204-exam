@@ -1,0 +1,26 @@
+# Criar um grupo de recursos
+az group create --name nath-rg-204 --location eastus
+
+# Criar um plano de serviço do App
+az appservice plan create --name appsvr-nath --resource-group nath-rg-204 --sku B1 --is-linux
+
+# Criar um aplicativo web dotnet
+az webapp create --resource-group nath-rg-204 --plan appsvr-nath --name nath-webapp-204 --runtime "DOTNET|6.0"
+
+# Criar um slot de implantação chamado "staging"
+az webapp deployment slot create --name nath-webapp-204 --resource-group nath-rg-204 --slot staging
+
+# Listar os slots de implantação
+az webapp deployment slot list --name nath-webapp-204 --resource-group nath-rg-204 --output table
+
+# Swap entre o slot de produção e o slot de staging
+az webapp deployment slot swap --name nath-webapp-204 --resource-group nath-rg-204 --slot staging --target-slot production
+
+# Traffic routing (10% do tráfego para o slot de staging)
+az webapp traffic-routing set --name nath-webapp-204 --resource-group nath-rg-204 --distribution staging=50
+
+# Mostrar Percentual de tráfego
+az webapp traffic-routing show --name nath-webapp-204 --resource-group nath-rg-204 --output table
+
+# Limpar traffic routing
+az webapp traffic-routing clear --name nath-webapp-204 --resource-group nath-rg-204
