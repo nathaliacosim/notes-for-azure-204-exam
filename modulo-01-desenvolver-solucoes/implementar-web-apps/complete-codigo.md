@@ -10,7 +10,7 @@ A questão exige que você **complete o comando da Azure CLI** corretamente para
 🧪 Comando esperado:
 
 ```bash
-az webapp log tail --name webappnath --resource-group rg-nath --docker-container-logging
+az webapp log config --name webappnath --resource-group rg-nath --docker-container-logging
 ```
 
 Ou, em alguns contextos, a versão sem o parâmetro específico:
