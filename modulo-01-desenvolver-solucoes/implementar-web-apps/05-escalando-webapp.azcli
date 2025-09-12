@@ -1,0 +1,23 @@
+# Criar grupo de recursos
+az group create --name nath-rg-204 --location eastus
+
+# Criar um app service plan
+az appservice plan create --name appsvr-nath --resource-group nath-rg-204 --sku FREE
+
+# Criar um web app
+az webapp create --resource-group nath-rg-204 --plan appsvr-nath --name nath-webapp
+
+# Escalando verticalmente o App Service Plan para o nível B1
+az appservice plan update --name appsvr-nath --resource-group nath-rg-204 --sku B1
+
+# Escalando horizontalmente o App Service Plan para 3 instâncias
+az appservice plan update --name appsvr-nath --resource-group nath-rg-204 --number-of-workers 3
+
+# Verificar o número de instâncias
+az appservice plan show --name appsvr-nath --resource-group nath-rg-204 --query "numberOfWorkers"
+
+# Listar todos os App Service Plans no grupo de recursos
+az appservice plan list --resource-group nath-rg-204 --output table
+
+# Limpar recursos
+az group delete --name nath-rg-204 --yes --no-wait
