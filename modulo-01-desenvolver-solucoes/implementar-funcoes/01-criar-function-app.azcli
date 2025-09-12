@@ -1,0 +1,4 @@
+# Criar um grupo de recursos
+az group create --name rg-nath
+
+# 

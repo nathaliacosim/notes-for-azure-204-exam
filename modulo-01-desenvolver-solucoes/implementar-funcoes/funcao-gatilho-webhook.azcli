@@ -1,0 +1,38 @@
+# Parte 1 – Criar Função HTTP no Azure (via CLI)
+# Criar grupo de recursos
+az group create --name rg-func-webhook --location eastus
+
+# Criar storage account
+az storage account create \
+  --name storagefuncweb001 \
+  --location eastus \
+  --resource-group rg-func-webhook \
+  --sku Standard_LRS
+
+# Criar function app
+az functionapp create \
+  --resource-group rg-func-webhook \
+  --consumption-plan-location eastus \
+  --name minhafuncaohttp001 \
+  --storage-account storagefuncweb001 \
+  --runtime python \
+  --functions-version 4
+
+# Parte 2 – Criar a Função HTTP
+# No portal Azure, acesse o App da Função > "Functions" > "Add" > Escolha "HTTP Trigger".
+# Configure:
+# Nome: WebhookHello
+# Authorization level: Function ou Anonymous
+# Código exemplo (Python): function.py
+
+# Parte 3 – Testar a Função
+# Recuperar a URL da função via CLI
+az functionapp function show \
+    --resource-group rg-func-webhook \
+    --name minhafuncaohttp001 \
+    --function-name WebhookHello \
+    --query invokeUrlTemplate \
+    --output tsv
+
+# Teste com curl:
+# curl "<url_da_funcao>?name=Azure"
