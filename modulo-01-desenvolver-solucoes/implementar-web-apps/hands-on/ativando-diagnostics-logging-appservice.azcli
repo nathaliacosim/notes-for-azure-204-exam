@@ -1,0 +1,56 @@
+# 📑 Pré-Requisitos
+# - Um App Service já publicado no Azure.
+# - Azure CLI instalado ou acesso ao Portal Azure.
+
+# ------------------------------------------------------------
+# Parte 1 – Ativar Logging via Azure CLI
+# ------------------------------------------------------------
+az webapp log config \
+  --name appnath \
+  --resource-group rg-appnath \
+  --application-logging filesystem \
+  --web-server-logging filesystem \
+  --detailed-error-messages true \
+  --failed-request-tracing true \
+  --level information
+
+# ------------------------------------------------------------
+# Parte 2 – Visualizar Logs (temporários no filesystem)
+# ------------------------------------------------------------
+# Acesse via FTP, Portal Azure (Diagnóstico > Logs), ou use o Kudu:
+# URL: https://<nome_app>.scm.azurewebsites.net
+# Menu "Debug Console" > LogFiles
+
+# ------------------------------------------------------------
+# Parte 3 – Armazenar Logs no Blob Storage (opcional)
+# ------------------------------------------------------------
+
+# 1. Criar uma conta de armazenamento
+az storage account create \
+  --name storageparalogs \
+  --resource-group rg-appnath \
+  --location eastus \
+  --sku Standard_LRS
+
+# 2. Obter a connection string
+CONN=$(az storage account show-connection-string \
+  --name storageparalogs \
+  --resource-group rg-appnath \
+  --query connectionString \
+  -o tsv)
+
+# 3. Configurar o App Service para enviar logs para o Blob
+az webapp log config \
+  --name appnath \
+  --resource-group rg-appnath \
+  --application-logging azureblobstorage \
+  --level information \
+  --storage-account-connection-string $CONN \
+  --retention 7
+
+# ------------------------------------------------------------
+# Recomendado para:
+# - Análise de erros e falhas HTTP
+# - Troubleshooting de desempenho
+# - Auditoria de acessos e execução
+# ------------------------------------------------------------
