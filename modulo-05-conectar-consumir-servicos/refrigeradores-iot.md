@@ -1,0 +1,5 @@
+Uma empresa está desenvolvendo uma solução que permite que refrigeradores inteligentes enviem informações de temperatura para um local central. A solução precisa receber e armazenar mensagens até que elas possam ser processadas. Você cria uma instância do Barramento de Serviço do Azure fornecendo um nome, um nível de preço, uma assinatura, um grupo de recursos e um local. Você precisa concluir a configuração. Qual comando da CLI do Azure ou do PowerShell você deve executar?
+
+`New-AzureRmServiceBusQueue -ResourceGroupName fridge-rg -NamespaceName fridge-ns -Name fridge-q -EnablePartitioning $False`.
+
+Este comando cria uma nova fila do Barramento de Serviço do Azure dentro do namespace e grupo de recursos especificados. Ele também desabilita o particionamento, o que é adequado para cenários em que as mensagens precisam ser armazenadas até que possam ser processadas. Este comando atende ao requisito de receber e armazenar mensagens de geladeiras inteligentes.
