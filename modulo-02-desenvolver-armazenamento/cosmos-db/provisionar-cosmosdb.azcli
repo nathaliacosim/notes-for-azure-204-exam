@@ -1,0 +1,99 @@
+# Criar um grupo de recursos
+az group create --name cosmos-nath --location eastus
+
+# Criar uma conta do Azure Cosmos DB com a API SQL
+az cosmosdb create --name dbnath-01 --resource-group cosmos-nath --kind GlobalDocumentDB
+
+# Criar uma conta no Azure Cosmos DB com a API MongoDB
+az cosmosdb create --name dbnath-02 --resource-group cosmos-nath --capabilities EnableMongo
+
+# Criar uma conta no Azure Cosmos DB com a API Cassandra
+az cosmosdb create --name dbnath-03 --resource-group cosmos-nath --capabilities EnableCassandra
+
+# Criar uma conta no Azure Cosmos DB com a API Gremlin
+az cosmosdb create --name dbnath-04 --resource-group cosmos-nath --capabilities EnableGremlin
+
+# Criar uma conta no Azure Cosmos DB com a API Table
+az cosmosdb create --name dbnath-05 --resource-group cosmos-nath --capabilities EnableTable
+
+# Criar um banco de dados SQL
+az cosmosdb sql database create \
+  --account-name dbnath-01 \
+  --resource-group cosmos-nath \
+  --name financas-db \
+  --throughput 600
+
+# Criar contêineres SQL
+az cosmosdb sql container create \
+  --account-name dbnath-01 \
+  --resource-group cosmos-nath \
+  --database-name financas-db \
+  --name receitas \
+  --partition-key-path "/category" \
+  --throughput 600
+
+az cosmosdb sql container create \
+  --account-name dbnath-01 \
+  --resource-group cosmos-nath \
+  --database-name financas-db \
+  --name despesas \
+  --partition-key-path "/category" \
+  --throughput 600
+
+# Listar os bancos de dados SQL na conta do Cosmos DB
+az cosmosdb sql database list --account-name dbnath-01 --resource-group cosmos-nath --out table
+
+# Atualizar o throughput do contêiner SQL
+az cosmosdb sql container throughput update \
+  --account-name dbnath-01 \
+  --resource-group cosmos-nath \
+  --database-name financas-db \
+  --name receitas \
+  --throughput 1000
+
+# Listar os contêineres SQL no banco de dados
+az cosmosdb sql container list \
+  --account-name dbnath-01 \
+  --resource-group cosmos-nath \
+  --database-name financas-db \
+  --out table
+
+# Obter a string de conexão da conta do Cosmos DB
+az cosmosdb keys list \
+  --name dbnath-01 \
+  --resource-group cosmos-nath \
+  --type connection-strings
+
+# Criar um banco de dados MongoDB
+az cosmosdb mongodb database create \
+  --account-name dbnath-02 \
+  --resource-group cosmos-nath \
+  --name mongo-financas-db
+
+# Criar uma coleção MongoDB (shard-key ajustado)
+az cosmosdb mongodb collection create \
+  --account-name dbnath-02 \
+  --resource-group cosmos-nath \
+  --database-name mongo-financas-db \
+  --name mongo-receitas \
+  --shard-key "category" \
+  --throughput 600
+
+# Listar os bancos de dados MongoDB na conta do Cosmos DB
+az cosmosdb mongodb database list \
+  --account-name dbnath-02 \
+  --resource-group cosmos-nath \
+  --out table
+
+# Listar as coleções MongoDB no banco criado
+az cosmosdb mongodb collection list \
+  --account-name dbnath-02 \
+  --resource-group cosmos-nath \
+  --database-name mongo-financas-db \
+  --out table
+
+# Deletar a conta do Cosmos DB
+az cosmosdb delete --name dbnath-01 --resource-group cosmos-nath --yes --no-wait
+
+# Deletar o grupo de recursos e todos os recursos associados
+az group delete --name cosmos-nath --yes --no-wait
